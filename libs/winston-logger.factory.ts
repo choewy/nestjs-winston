@@ -4,6 +4,17 @@ import DailyRotateFile, { DailyRotateFileTransportOptions } from 'winston-daily-
 
 import { WinstonLoggerFactoryCreateOptions, WinstonLoggerLevel, WinstonLoggerFactoryOptions, WinstonCreateFileName } from './interfaces';
 
+/**
+ * Creates an instance of WinstonLoggerFactory
+ *
+ * @param opts optional
+ * @param opts.name logger context name (default: Nest)
+ * @param opts.dirname log directory name (default: ./logs)
+ * @param opts.dataPattern date format (default: YYYY-MM-DD)
+ * @param opts.createFilename create log filename function
+ * @param opts.maxSize max size of log file (default: 150mb)
+ * @param opts.maxFiles max days of log file (default: 3d)
+ * */
 export class WinstonLoggerFactory {
   private readonly LEVEL = Symbol.for('level');
 
@@ -23,7 +34,14 @@ export class WinstonLoggerFactory {
     this.maxFiles = opts?.maxFiles ?? '3d';
   }
 
-  create(opts: WinstonLoggerFactoryCreateOptions = {}) {
+  /**
+   * Creates an LoggerService with WinstonLogger
+   *
+   * @param opts: optional
+   * @param opts.consoleLevel Array of ["log", "error", "warn", "debug", "verbose", "fatal", "info", "silly"]
+   * @param opts.fileLevel Array of ["log", "error", "warn", "debug", "verbose", "fatal", "info", "silly"]
+   * */
+  public create(opts: WinstonLoggerFactoryCreateOptions = {}) {
     return WinstonModule.createLogger({
       transports: [].concat(this.createConsoleTransports(opts.consoleLevel)).concat(this.createFileTransports(opts.fileLevel)),
     });

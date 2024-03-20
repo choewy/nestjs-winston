@@ -23,8 +23,8 @@ export interface WinstonLoggerFactoryOptions {
 /**
  * Create Logger Service(Winston Logger) Options
  *
- * @param consoleLevel logger levels for console
- * @param fileLevel logger levels for file
+ * @param consoleLevel Array of ["log", "error", "warn", "debug", "verbose", "fatal", "info", "silly"]
+ * @param fileLevel Array of ["log", "error", "warn", "debug", "verbose", "fatal", "info", "silly"]
  *  */
 export interface WinstonLoggerFactoryCreateOptions {
   consoleLevel?: WinstonLoggerLevel[];
