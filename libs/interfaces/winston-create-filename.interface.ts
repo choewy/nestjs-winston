@@ -1,3 +1,3 @@
-import { WinstonLoggerLevel } from './winston-logger-factory-options.interface';
+import { WinstonLoggerLevel } from './winston-logger-level.interface';
 
 export type WinstonCreateFileName = (level: WinstonLoggerLevel) => string;
