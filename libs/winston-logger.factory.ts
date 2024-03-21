@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { WinstonModule, utilities } from 'nest-winston';
 import winston from 'winston';
 import DailyRotateFile, { DailyRotateFileTransportOptions } from 'winston-daily-rotate-file';
@@ -42,9 +43,13 @@ export class WinstonLoggerFactory {
    * @param opts.fileLevel Array of ["log", "error", "warn", "debug", "verbose", "fatal", "info", "silly"]
    * */
   public create(opts: WinstonLoggerFactoryCreateOptions = {}) {
-    return WinstonModule.createLogger({
+    const logger = WinstonModule.createLogger({
       transports: [].concat(this.createConsoleTransports(opts.consoleLevel)).concat(this.createFileTransports(opts.fileLevel)),
     });
+
+    Logger.overrideLogger(logger);
+
+    return logger;
   }
 
   private createDefaultFilename(level: WinstonLoggerLevel): string {

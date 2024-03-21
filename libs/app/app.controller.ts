@@ -7,7 +7,7 @@ import { GetValueQuery } from './queries';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get(':type')
+  @Get('value/:type')
   async getValue(@Param() param: GetValueQuery) {
     return this.appService.getValue(param.type);
   }
